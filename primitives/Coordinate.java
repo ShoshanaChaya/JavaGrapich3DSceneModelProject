@@ -70,6 +70,11 @@ public final class Coordinate {
         return _coord + cord._coord;
     }
 
+    /**
+     * adds one double to another
+     * @param cord double value
+     * @return double value
+     */
     public double add (double cord)
     {
         return _coord + cord;
@@ -84,10 +89,28 @@ public final class Coordinate {
         return new Coordinate( _coord * cord._coord);
     }
 
+    /**
+     * divides a point by a number
+     * @param cord double value
+     * @return coordinate value
+     */
     public Coordinate divide (double cord)
     {
         return new Coordinate(_coord / cord);
     }
+
+    /**
+     * checks if a number is bigger than another
+     * @param cord coordinate value
+     * @return boolean value
+     */
+    public boolean bigger(Coordinate cord){
+        if (_coord > cord._coord){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "" + _coord;

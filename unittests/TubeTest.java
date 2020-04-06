@@ -19,6 +19,11 @@ public class TubeTest {
     @Test
     public void getNormal() {
         Tube t = new Tube(1, new Ray(new Point3D(1,0,0), new Vector(0,1,0)));
-        assertEquals("Bad normal to tube", new Vector(-1, 0, 0), t.getNormal(new Point3D(2, 0, 0)));
+        double num = 0.5773502691896258;
+        assertEquals("Bad normal to tube", new Vector(-num, num, num), t.getNormal(new Point3D(0, 1, 1)));
     }
+
+    /**@Test
+    public void findIntsersections() {
+    }**/
 }

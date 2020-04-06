@@ -3,10 +3,12 @@ package unittests;
 import geometries.Plane;
 import org.junit.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.*;
 /**
  * Unit tests for geometries.Plane class
  * @author Shoshana Chaya and Yael
@@ -22,4 +24,28 @@ public class PlaneTest {
             Plane pl = new Plane(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
             assertEquals("Bad normal to plane", new Vector(0, 0, 1), pl.getNormal(new Point3D(1, 0, 0)));
         }
+    /**
+     * Test method for {@link.geometries.Plane#findIntsersections(geometries.Plane)}.
+     */
+    @Test
+    public void findIntsersections() {
+        Plane p= new Plane (new Point3D(1,0,0), new Point3D(0,1,0), new Point3D(1,1,0));
+        List<Point3D> result;
+        // ============ Equivalence Partitions Tests ==============
+        //TC01 Ray's line inside plane (1 point)
+        result = p.findIntersections(new Ray(new Point3D(0.99,0.99,3), new Vector(0,0,-1).normalize()));
+        assertEquals("Wrong number of points", 1, result.size());
+        //TC02 Ray starts on the plane
+        result = p.findIntersections(new Ray(new Point3D(1,1,0), new Vector(0,0,-1).normalize()));
+        assertEquals("Wrong number of points", null, result);
+        // =============== Boundary Values Tests ==================
+        //TC04 on the plane (0 points)
+        result=p.findIntersections(new Ray(new Point3D(0.99,0.99,0), new Vector(1,1,0).normalize()));
+        assertEquals("Wrong number of points", null, result);
+        //TC05 The ray is parallel to the plane(1 point)
+        result=p.findIntersections(new Ray(new Point3D(0.99,0.99,3), new Vector(1,1,0).normalize()));
+        assertEquals("Wrong number of points", null, result);
+
+
+    }
 }

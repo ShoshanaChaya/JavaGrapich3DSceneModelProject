@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
@@ -94,4 +95,8 @@ public class Polygon implements Geometry {
                 ", _plane=" + _plane;
     }
 
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }

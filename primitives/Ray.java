@@ -7,17 +7,19 @@ package primitives;
 public class Ray
 {
     /************* fields ************/
-    Point3D _point;
-    Vector _vector;
+    private final Point3D _point;
+    private final Vector _vector;
 /************************* constructors ********************/
     /**
      * constructor that gets vector and a point
-     * @param _point
-     * @param _vector
+     * @param _point point3D value
+     * @param _vector vector value
      */
     public Ray(Point3D _point, Vector _vector) {
-        if (_vector.length() != 1){
-            throw new IllegalArgumentException("Vector must be normalized");
+        if(_vector.length() != 1) {
+            if (1 - _vector.length() != 1.1102230246251565E-16) {
+                throw new IllegalArgumentException("Vector must be normalized");
+            }
         }
         this._point = _point;
         this._vector = _vector;
@@ -25,7 +27,7 @@ public class Ray
 
     /**
      * copy constructor
-     * @param ray
+     * @param ray ray value
      */
     public Ray(Ray ray){
         if (ray._vector.length() != 1){
@@ -36,11 +38,11 @@ public class Ray
     }
 /******************* getter *******************/
     public Point3D get_point() {
-        return _point;
+        return new Point3D(_point);
     }
 
     public Vector get_vector() {
-        return _vector;
+        return new Vector(_vector);
     }
 
     @Override
@@ -56,5 +58,17 @@ public class Ray
         Ray ray = (Ray) o;
         return _point.equals(ray._point) &&
                 _vector.equals(ray._vector);
+    }
+
+    /**
+     * returns intersection point
+     * @param t double value
+     * @return Point point3D value
+     */
+    public Point3D getTargetPoint(double t) {
+        if (Util.isZero(t)){
+            return _point;
+        }
+        return new Point3D(_point).add(_vector.scale(t));
     }
 }

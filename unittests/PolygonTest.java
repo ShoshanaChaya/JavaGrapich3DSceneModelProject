@@ -93,4 +93,7 @@ public class PolygonTest {
         assertEquals("Bad normal to polygon", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
     }
 
+    /**@Test
+    public void findIntsersections() {
+    }**/
 }

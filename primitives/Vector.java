@@ -12,9 +12,9 @@ public class Vector
 /****************** constructors *******************/
     /**
      * constructor that gets 3 coordinates
-     * @param _x
-     * @param _y
-     * @param _z
+     * @param _x coordinate value
+     * @param _y coordinate value
+     * @param _z coordinate value
      */
     public Vector(Coordinate _x, Coordinate _y, Coordinate _z) {
         Point3D point=new Point3D(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
@@ -27,8 +27,8 @@ public class Vector
 
     /**
      * constructor that gets 2 points
-     * @param p1
-     * @param p2
+     * @param p1 point3D value
+     * @param p2 point3D value
      */
     public Vector(Point3D p1, Point3D p2) {
         this(p1.subtract(p2));
@@ -36,9 +36,9 @@ public class Vector
 
     /**
      * constructor that gets 3 double parameters
-     * @param _x
-     * @param _y
-     * @param _z
+     * @param _x double value
+     * @param _y double value
+     * @param _z double value
      */
     public Vector(double _x, double _y, double _z) {
         Point3D point=new Point3D(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
@@ -51,7 +51,7 @@ public class Vector
 
     /**
      * constructor that gets a point
-     * @param _point
+     * @param _point point3D value
      */
     public Vector(Point3D _point) {
         if (_point.equals(Point3D.ZERO))
@@ -63,7 +63,7 @@ public class Vector
 
     /**
      * copy constructor
-     * @param _vector
+     * @param _vector vector value
      */
     public Vector (Vector _vector)
     {
@@ -72,19 +72,15 @@ public class Vector
 
 /************************* getter *************************/
 
-    /**
-     * Vector value getter
-     *
-     * @return vector value
-     */public Point3D get_point() {
+    public Point3D get_point() {
         return _point;
     }
 
     /****************** math functions *********************/
     /**
      * adds one vector to another
-     * @param vec
-     * @return vector
+     * @param vec vector value
+     * @return vector vector value
      */
     public Vector add(Vector vec)
     {
@@ -94,8 +90,8 @@ public class Vector
 
     /**
      * subtracts one vector from another
-     * @param vec
-     * @return vector
+     * @param vec vector value
+     * @return vector vector value
      */
     public Vector subtract (Vector vec)
     {
@@ -103,6 +99,11 @@ public class Vector
         return vector;
     }
 
+    /**
+     * multiplies a vector by a number
+     * @param t double value
+     * @return vector vector value
+     */
     public Vector multiple(double t){
         Vector vector = new Vector(_point.multiple(t));
         return vector;
@@ -110,8 +111,8 @@ public class Vector
 
     /**
      * multiplies a vector with a number
-     * @param num
-     * @return vector
+     * @param num double value
+     * @return vector vector value
      */
     public Vector scale (double num)
     {
@@ -122,7 +123,7 @@ public class Vector
 
     /**
      * multiplies a vector with another by number
-     * @param vec
+     * @param vec vector value
      * @return double value
      */
     public double dotProduct (Vector vec)
@@ -135,8 +136,8 @@ public class Vector
 
     /**
      * multiplies a vector with another
-     * @param vec
-     * @return vector
+     * @param vec vector value
+     * @return vector vector value
      */
     public Vector crossProduct (Vector vec)
     {
@@ -152,9 +153,9 @@ public class Vector
      */
     public double lengthSquared ()
     {
-        Coordinate x = new Coordinate(this._point.get_z().multiple(this._point.get_z()));
-        Coordinate y = new Coordinate(this._point.get_x().multiple(this._point.get_x()));
-        Coordinate z = new Coordinate(this._point.get_y().multiple(this._point.get_y()));
+        Coordinate x = new Coordinate(this._point.get_x().multiple(this._point.get_x()));
+        Coordinate y = new Coordinate(this._point.get_y().multiple(this._point.get_y()));
+        Coordinate z = new Coordinate(this._point.get_z().multiple(this._point.get_z()));
         return x.add(y.add(z));
     }
 
@@ -169,7 +170,7 @@ public class Vector
 
     /**
      * divides a vector by its length
-     * @return original vector
+     * @return original vector vector value
      */
     public Vector normalize ()   {
         double length = this.length();
@@ -182,7 +183,7 @@ public class Vector
 
     /**
      * divides a vector by its length
-     * @return new vector
+     * @return new vector vector value
      */
     public Vector normalized ()  {
         return new Vector(this.normalize());

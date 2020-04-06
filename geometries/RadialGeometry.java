@@ -12,7 +12,7 @@ public abstract class RadialGeometry
 /****************** constructors ********************/
     /**
      * constructor that gets a double value
-     * @param _radius
+     * @param _radius double value
      */
     public RadialGeometry(double _radius) {
         this._radius = _radius;

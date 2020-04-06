@@ -42,7 +42,7 @@ public class Point3D
 
     /**
      * copy constructor
-     * @param _point
+     * @param _point point3D value
      */
     public Point3D(Point3D _point)
     {
@@ -73,8 +73,8 @@ public class Point3D
     /******************* math functions *******************/
     /**
      * substract one point from the other
-     * @param _point
-     * @return vector
+     * @param _point point3D value
+     * @return vector vector value
      */
     public Vector subtract (Point3D _point)
     {
@@ -84,18 +84,19 @@ public class Point3D
 
     /**
      * adds one point to another
-     * @param _vector
-     * @return Point3D
+     * @param _vector vector value
+     * @return Point point3D value
      */
     public Point3D add (Vector _vector)
     {
         Point3D point = new Point3D(_x.add( _vector.get_point().get_x()), _y.add( _vector.get_point().get_y()), _z.add( _vector.get_point().get_z()));
         return point;
     }
+
     /**
      * divides one point in another
-     * @param _vector
-     * @return Point3D
+     * @param _vector vector value
+     * @return Point point3d value
      */
     public Point3D divide (double _vector)
     {
@@ -103,6 +104,11 @@ public class Point3D
         return point;
     }
 
+    /**
+     * multiplies a point by a number
+     * @param t double value
+     * @return point point3D value
+     */
     public Point3D multiple (double t){
         Coordinate c = new Coordinate(t);
         Point3D point = new Point3D(_x.multiple(c), _y.multiple(c), _z.multiple(c));
@@ -110,7 +116,7 @@ public class Point3D
     }
     /**
      * calculates distance between two points multiplied by itself
-     * @param _point
+     * @param _point point3D value
      * @return distance in double value
      */
     public double distanceSquared (Point3D _point){
@@ -118,11 +124,10 @@ public class Point3D
         Coordinate y = _y.subtract(_point._y).multiple(_y.subtract(_point._y));
         Coordinate z = _z.subtract(_point._z).multiple(_z.subtract(_point._z));
         return x.add(y.add(z));
-        //return _x.subtract(_point._x).multiple(_x.subtract(_point._x)).add(_y.subtract(_point._y).multiple(_y.subtract(_point._y)));
     }
     /**
      * calculates distance between two points
-     * @param _point
+     * @param _point point3D value
      * @return distance in double value
      */
     public double distance (Point3D _point)

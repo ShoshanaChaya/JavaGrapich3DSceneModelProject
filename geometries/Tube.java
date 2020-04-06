@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Class Tube is the basic class representing a tube
  * @author Shoshana Chaya and Yael
@@ -16,14 +18,23 @@ public class Tube extends RadialGeometry implements Geometry
 /************* constructor ***********/
     /**
      * constructor that gets a radius and ray
-     * @param _radius
-     * @param ray
+     * @param _radius double value
+     * @param ray ray value
      */
     public Tube(double _radius, Ray ray) {
         super(_radius);
         this.ray = ray;
     }
-/************ getter ******************/
+
+    /**
+     * constructor that gets a double value
+     * @param radius double value
+     */
+    public Tube(double radius) {
+        super(radius);
+    }
+
+    /************ getter ******************/
     public Ray getRay() {
         return ray;
     }
@@ -33,17 +44,37 @@ public class Tube extends RadialGeometry implements Geometry
         return  "ray=" + ray +
                 ", _radius=" + _radius;
     }
+
     /**
      * calculates the normal to a given point
-     * @return vector
+     * @param point point3D value
+     * @return vector vector value
      */
     @Override
     public Vector getNormal(Point3D point) {
-        Vector v = new Vector(point);
-        Point3D p = new Point3D(point);
-        double t = v.dotProduct(new Vector(p));
-        Point3D o = new Point3D(v.multiple(t).get_point());
-        Vector n = (p.subtract(o)).normalize();
-        return n;
+        Point3D o = ray.get_point();
+        Vector v = ray.get_vector();
+
+        Vector vector1 = point.subtract(o);
+
+        double projection = vector1.dotProduct(v);
+        if(projection == 0)
+        {
+            // projection of P-O on the ray:
+            o.add(v.scale(projection));
+        }
+
+        Vector check = point.subtract(o);
+        return check.normalize();
+    }
+
+    /**
+     * finds intersections of the tube
+     * @param ray ray value
+     * @return a list of intersection points
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }
