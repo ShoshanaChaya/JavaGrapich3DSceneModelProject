@@ -1,6 +1,6 @@
 package unittests;
 
-import geometries.Triangle;
+import geometries.*;
 import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TriangleTest {
     /**
-     * Test method for {@link.geometries.Triangle#getNormal(geometries.Triangle)}.
+     * Test method for getNormal of triangle
      */
     @Test
     public void getNormal() {
@@ -25,13 +25,13 @@ public class TriangleTest {
             assertEquals("Bad normal to trinagle", new Vector(1, 1, 1), tr.getNormal(new Point3D(0, 0, 1)));
     }
     /**
-     * Test method for {@link.geometries.Triangle#findIntsersections(geometries.Triangle)}.
+     * Test method for findIntersection of triangle
      */
     @Test
     public void findIntsersections()
     {
         Triangle t = new Triangle(new Point3D(1,0,0), new Point3D(0,1,0), new Point3D(1,1,0));
-        List<Point3D> result;
+        List<Intersectable.GeoPoint> result;
 
         // ============ Equivalence Partitions Tests ==============
         //TC01 Ray's line inside triangle (1 point)

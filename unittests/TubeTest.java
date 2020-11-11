@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class TubeTest {
     // ============ Equivalence Partitions Tests ==============
     /**
-     * Test method for {@link.geometries.Tube#getNormal(geometries.Tube)}.
+     * Test method for getNormal of tube
      */
     @Test
     public void getNormal() {

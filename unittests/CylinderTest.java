@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class CylinderTest {
     // ============ Equivalence Partitions Tests ==============
     /**
-     * Test method for {@link.geometries.Cylinder#getNormal(geometries.Cylinder)}.
+     * Test method for getNormal of cylinder
      */
     @Test
     public void getNormal() {
@@ -23,8 +23,4 @@ public class CylinderTest {
         Vector v = c.getNormal(new Point3D(0, 0 ,1));
         assertEquals("Bad normal to tube", new Vector(0, 0, 1), v);
     }
-
-    /**@Test
-    public void findIntsersections() {
-    }**/
 }

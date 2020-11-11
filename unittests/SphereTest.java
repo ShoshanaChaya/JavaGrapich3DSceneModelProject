@@ -1,6 +1,6 @@
 package unittests;
 
-import geometries.Sphere;
+import geometries.*;
 import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
@@ -9,6 +9,7 @@ import primitives.Vector;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Unit tests for geometries.Sphere class
  * @author Shoshana Chaya and Yael
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class SphereTest {
     // ============ Equivalence Partitions Tests ==============
     /**
-     * Test method for {@link.geometries.Sphere#getNormal(geometries.Sphere)}.
+     * Test method for getNormal of sphere
      */
     @Test
     public void getNormal() {
@@ -24,7 +25,7 @@ public class SphereTest {
         assertEquals("Bad normal to sphere", new Vector(1, 0, 0), s.getNormal(new Point3D(2, 0, 0)));
     }
     /**
-     * Test method for {@link.geometries.Sphere#findIntsersections(geometries.Sphere)}.
+     * Test method for findIntersections of sphere
      */
     @Test
     public void findIntsersections() {
@@ -39,9 +40,9 @@ public class SphereTest {
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
         Vector v = new Vector(3,1,0).normalize();
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1,0,0), v));
+        List<Intersectable.GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1,0,0), v));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).get_x().bigger(result.get(1).get_x()))
+        if (result.get(0).getPoint().get_x().bigger(result.get(1).getPoint().get_x()))
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
         // TC03: Ray starts inside the sphere (1 point)

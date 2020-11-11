@@ -13,7 +13,7 @@ public class Point3D
     Coordinate _y;
     Coordinate _z;
 
-    public static final Point3D ZERO= new Point3D(new Coordinate(0), new Coordinate(0), new Coordinate(0));
+    public static final Point3D ZERO = new Point3D(new Coordinate(0), new Coordinate(0), new Coordinate(0));
 
 /********************* constructors ********************/
     /**
@@ -83,6 +83,17 @@ public class Point3D
     }
 
     /**
+     * substract one point from the other
+     * @param v Vector value
+     * @return vector vector value
+     */
+    public Point3D subtract (Vector v)
+    {
+        Vector point = new Vector(new Point3D(_x.subtract(v.get_point()._x), _y.subtract(v.get_point()._y), _z.subtract(v.get_point()._z)));
+        return point.get_point();
+    }
+
+    /**
      * adds one point to another
      * @param _vector vector value
      * @return Point point3D value
@@ -90,6 +101,16 @@ public class Point3D
     public Point3D add (Vector _vector)
     {
         Point3D point = new Point3D(_x.add( _vector.get_point().get_x()), _y.add( _vector.get_point().get_y()), _z.add( _vector.get_point().get_z()));
+        return point;
+    }
+
+    /**
+     * add a point to a given point
+     * @param p point3D value
+     * @return point3D value
+     */
+    public Point3D add(Point3D p) {
+        Point3D point = new Point3D(_x.add(p._x), _y.add(p._y), _z.add(p._z));
         return point;
     }
 

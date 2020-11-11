@@ -1,5 +1,6 @@
 package unittests;
 
+import geometries.Intersectable;
 import geometries.Plane;
 import org.junit.Test;
 import primitives.Point3D;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlaneTest {
     /**
-     * Test method for {@link.geometries.Plane#getNormal(geometries.Plane)}.
+     * Test method for getNormal of plane
      */
     @Test
     public void getNormal() {
@@ -24,13 +25,14 @@ public class PlaneTest {
             Plane pl = new Plane(new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
             assertEquals("Bad normal to plane", new Vector(0, 0, 1), pl.getNormal(new Point3D(1, 0, 0)));
         }
+
     /**
-     * Test method for {@link.geometries.Plane#findIntsersections(geometries.Plane)}.
+     * Test method for findIntersections of plane
      */
     @Test
-    public void findIntsersections() {
+    public void findIntersections() {
         Plane p= new Plane (new Point3D(1,0,0), new Point3D(0,1,0), new Point3D(1,1,0));
-        List<Point3D> result;
+        List<Intersectable.GeoPoint> result;
         // ============ Equivalence Partitions Tests ==============
         //TC01 Ray's line inside plane (1 point)
         result = p.findIntersections(new Ray(new Point3D(0.99,0.99,3), new Vector(0,0,-1).normalize()));

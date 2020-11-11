@@ -52,7 +52,7 @@ public final class Coordinate {
         return isZero(_coord - ((Coordinate)obj)._coord);
     }
     /**
-     * substract one point from the other
+     * subtract one point from the other
      * @param cord
      * @return vector
      */

@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -15,10 +12,10 @@ public class Triangle extends Polygon
 {
     /*********************** constructor ********************/
     /**
-     * constuctor that gets 3 points
-     * @param firstPoint point3D value
-     * @param secondPoint point3D value
-     * @param thirdPoint point3D value
+     * constructor that gets 3 points
+     * @param firstPoint point of triangle
+     * @param secondPoint point of triangle
+     * @param thirdPoint point of triangle
      */
     public Triangle(Point3D firstPoint, Point3D secondPoint, Point3D thirdPoint)
     {
@@ -26,9 +23,32 @@ public class Triangle extends Polygon
     }
 
     /**
+     * constructor that gets a color, material, and 3 points
+     * @param emissionLight color value
+     * @param material material value
+     * @param p1 point of triangle
+     * @param p2 point of triangle
+     * @param p3 point of triangle
+     */
+    public Triangle(Color emissionLight, Material material, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight,material,p1,p2,p3);
+    }
+
+    /**
+     * constructor that gets a color and 3 points
+     * @param emissionLight color value
+     * @param p1 point of triangle
+     * @param p2 point of triangle
+     * @param p3 point of triangle
+     */
+    public Triangle(Color emissionLight, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight,p1, p2, p3);
+    }
+
+    /**
      * calculates the normal to a given point
-     * @param point point3D value
-     * @return vector vector value
+     * @param point point that from it starts the normal
+     * @return normal
      */
     @Override
     public Vector getNormal(Point3D point) {
@@ -43,40 +63,10 @@ public class Triangle extends Polygon
 
     /**
      * finds intersections of the triangle
-     * @param ray ray value
+     * @param ray ray which does the intersections
      * @return a list of intersection points
      */
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersections = _plane.findIntersections(ray);
-        if (intersections == null) {
-            return null;
-        }
-
-        Point3D p0 = ray.get_point();
-        Vector v = ray.get_vector();
-
-        Vector v1 = _vertices.get(0).subtract(p0);
-        Vector v2 = _vertices.get(1).subtract(p0);
-        Vector v3 = _vertices.get(2).subtract(p0);
-
-        double s1 = v.dotProduct(v1.crossProduct(v2));
-        if (Util.isZero(s1)) {
-            return null;
-        }
-        double s2 = v.dotProduct(v2.crossProduct(v3));
-        if (Util.isZero(s2)) {
-            return null;
-        }
-        double s3 = v.dotProduct(v3.crossProduct(v1));
-        if (Util.isZero(s3)) {
-            return null;
-        }
-
-        if((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)){
-            return intersections;
-        }
-        return null;
-
+    public List<GeoPoint> findIntersections(Ray ray) {
+        return super.findIntersections(ray);
     }
 }

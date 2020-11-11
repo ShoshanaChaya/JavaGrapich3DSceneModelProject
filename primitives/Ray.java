@@ -1,5 +1,9 @@
 package primitives;
 
+import java.util.Random;
+
+import static primitives.Util.isZero;
+
 /**
  * Class Ray is the basic class representing a vector with a starting point
  * @author Shoshana Chaya and Yael
@@ -9,6 +13,8 @@ public class Ray
     /************* fields ************/
     private final Point3D _point;
     private final Vector _vector;
+    private static final double DELTA = 0.1;
+    private static final Random rnd = new Random();
 /************************* constructors ********************/
     /**
      * constructor that gets vector and a point
@@ -16,13 +22,23 @@ public class Ray
      * @param _vector vector value
      */
     public Ray(Point3D _point, Vector _vector) {
-        if(_vector.length() != 1) {
-            if (1 - _vector.length() != 1.1102230246251565E-16) {
-                throw new IllegalArgumentException("Vector must be normalized");
-            }
-        }
         this._point = _point;
-        this._vector = _vector;
+        this._vector = _vector.normalize();
+    }
+
+    /**
+     * constructor that gets a point, direction, normal
+     * @param point point3D value
+     * @param direction vector value
+     * @param normal vector value
+     */
+    public Ray(Point3D point, Vector direction, Vector normal) {
+        _vector = new Vector(direction).normalize();
+
+        double nv = normal.dotProduct(direction);
+
+        Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
+        _point = point.add(normalDelta);
     }
 
     /**
@@ -66,7 +82,7 @@ public class Ray
      * @return Point point3D value
      */
     public Point3D getTargetPoint(double t) {
-        if (Util.isZero(t)){
+        if (isZero(t)){
             return _point;
         }
         return new Point3D(_point).add(_vector.scale(t));

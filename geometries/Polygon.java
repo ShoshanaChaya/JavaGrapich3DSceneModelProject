@@ -1,11 +1,11 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends FlatGeometry {
     /**
      * List of polygon's vertices
      */
@@ -42,17 +42,20 @@ public class Polygon implements Geometry {
      *                                  <li>Three consequent vertices lay in the
      *                                  same line (180&#176; angle between two
      *                                  consequent edges)
-     *                                  <li>The polygon is concave (not convex></li>
+     *                                  <li>The polygon is concave (not convex)</li>
      *                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
+    public Polygon(Color emissionLight, Material material, Point3D... vertices) {
+
+        super(emissionLight,material);
+
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
-        _plane = new Plane(vertices[0], vertices[1], vertices[2]);
+        _plane = new Plane(emissionLight, vertices[0], vertices[1], vertices[2]);
         if (vertices.length == 3) return; // no need for more tests for a Triangle
 
         Vector n = _plane.getNormal();
@@ -84,6 +87,23 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * constructor that gets a color and points from type of point3D
+     * @param emissionLight color value
+     * @param vertices point3D value
+     */
+    public Polygon(Color emissionLight, Point3D... vertices) {
+        this(emissionLight,new Material(0,0,0),vertices);
+    }
+
+    /**
+     * constructor that gets a lot of point3D value
+     * @param vertices point3D value
+     */
+    public Polygon(Point3D... vertices) {
+        this(Color.BLACK,new Material(0,0,0),vertices);
+    }
+
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
@@ -94,9 +114,48 @@ public class Polygon implements Geometry {
         return "_vertices=" + _vertices +
                 ", _plane=" + _plane;
     }
-
+    /**
+     * finds intersections of the plane
+     * @param ray ray which does the intersections
+     * @param maxDistance double value
+     * @return a list of intersection points
+     */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
+    public List<GeoPoint> findIntersections(Ray ray, double maxDistance) {
+        List<GeoPoint> planeIntersections = _plane.findIntersections(ray, maxDistance);
+        if (planeIntersections == null) // there aren't any intersection points
+            return null;
+        // saved parameters to be used in the function
+        Point3D p0 = ray.get_point();
+        Vector v = ray.get_vector();
+
+        // calculates and checks if the vectors have the same sign and are on the same plane
+        Vector v1 = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(0).subtract(p0);
+        double sign = v.dotProduct(v1.crossProduct(v2).normalized());
+        if (isZero(sign)) {
+            return null;
+        }
+
+        boolean positive = sign > 0;
+
+        for (int i = _vertices.size() - 1; i > 0; --i) { // checks all the vertices
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(p0);
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2).normalized()));
+            if (isZero(sign)) { // if there aren't any intersection points
+                return null;
+            }
+            if (positive != (sign > 0)) { // if there aren't any intersection points
+                return null;
+            }
+        }
+
+        //for GeoPoint
+        List<GeoPoint> result = new LinkedList<>();
+        for (GeoPoint geo : planeIntersections) { // goes through each GeoPoint in planeIntersections and add it to result
+            result.add(new GeoPoint(this, geo.getPoint()));
+        }
+        return result; // returns a list of intersection points
     }
 }

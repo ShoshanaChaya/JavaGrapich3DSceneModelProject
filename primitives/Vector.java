@@ -17,7 +17,7 @@ public class Vector
      * @param _z coordinate value
      */
     public Vector(Coordinate _x, Coordinate _y, Coordinate _z) {
-        Point3D point=new Point3D(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
+        Point3D point = new Point3D(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
        if (point.equals(Point3D.ZERO))
        {
            throw new IllegalArgumentException("The point can't be zero");

@@ -19,8 +19,7 @@ import static org.junit.Assert.fail;
 public class PolygonTest {
 
     /**
-     * Test method for
-     * {@link geometries.Polygon#(primitives.Point3D, primitives.Point3D, primitives.Point3D, primitives.Point3D)}.
+     * Test method for polygon
      */
     @Test
     public void testConstructor() {

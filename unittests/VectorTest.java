@@ -13,6 +13,9 @@ public class VectorTest {
     Vector v2;
     Vector v3;
 
+    /**
+     * checks if the function add works correct
+     */
     @Test
     public void add() {
         // ============ Equivalence Partitions Tests ==============
@@ -35,7 +38,9 @@ public class VectorTest {
 
         }
     }
-
+    /**
+     * checks if the function subtract works correct
+     */
     @Test
     public void subtract() {
         v1 = new Vector(1.0, 1.0, 1.0);
@@ -58,6 +63,9 @@ public class VectorTest {
         }
     }
 
+    /**
+     * checks if the function scale works correct
+     */
     @Test
     public void scale() {
         v1 = new Vector(1.0, 1.0, 1.0);
@@ -82,6 +90,9 @@ public class VectorTest {
         }
     }
 
+    /**
+     * checks if the function dotProduct works correct
+     */
     @Test
     public void dotProduct() {
         v1 = new Vector(1, 2, 3);
@@ -105,6 +116,9 @@ public class VectorTest {
         }
     }
 
+    /**
+     * checks if the function add crossProduct correct
+     */
     @Test
     public void crossProduct() {
         v1 = new Vector(1, 2, 3);
@@ -127,6 +141,9 @@ public class VectorTest {
         assertEquals(v.dotProduct(v3), 0, 1e-10);
     }
 
+    /**
+     * checks if the function add lengthSquared correct
+     */
     @Test
     public void lengthSquared() {
         v1 = new Vector(1, 2, 3);
@@ -139,6 +156,9 @@ public class VectorTest {
         assertEquals(v1.lengthSquared()-14 , 0, 1e-10);
     }
 
+    /**
+     * checks if the function length works correct
+     */
     @Test
     public void length() {
 
@@ -151,6 +171,9 @@ public class VectorTest {
         assertEquals(new Vector(0, 3, 4).length() - 5, 0, 1e-10);
     }
 
+    /**
+     * checks if the function normalize works correct
+     */
     @Test
     public void normalize() {
         Vector v = new Vector(1, 2, 3);
@@ -172,6 +195,9 @@ public class VectorTest {
         }
     }
 
+    /**
+     * checks if the function normalized works correct
+     */
     @Test
     public void normalized() {
         Vector vec5 = new Vector(1, 2, 3);
